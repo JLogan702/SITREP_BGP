@@ -7,9 +7,19 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+
+  <!-- NAVIGATION BAR -->
+  <nav class="nav-bar">
+    <ul>
+      <li><a href="index.html">Program Summary</a></li>
+      <li><a href="sprint_readiness.html">Sprint Readiness</a></li>
+      <li><a class="active" href="backlog_health.html">Backlog Health</a></li>
+    </ul>
+  </nav>
+
   <header>
     <h1>Team Backlog Health</h1>
-    <p>This shows how well groomed each team’s backlog is.</p>
+    <p>This page shows how well each team's backlog is groomed for future sprint planning.</p>
   </header>
 
   <div class="team-grid">
@@ -17,9 +27,13 @@
     <div class="team-box">
       <h2>Engineering - Platform</h2>
       <img src="img/blinking_stoplight_green.gif" class="stoplight" alt="Status" title="Status: Green">
-      <p title="% of backlog stories that are groomed and ready for future sprints.">
-        Groomed: <strong>80%</strong>
+      <p><strong>Green</strong> —
+        
+          On Track: Backlog is refined and prioritized.
+        
       </p>
+      <p><strong>80%</strong> of backlog is groomed</p>
+
       <canvas id="groomingChart0" width="200" height="200"></canvas>
       <script>
         new Chart(document.getElementById('groomingChart0'), {
@@ -31,7 +45,11 @@
               backgroundColor: ['#2196f3', '#eeeeee']
             }]
           },
-          options: { plugins: { legend: { display: false } }, cutout: '60%' }
+          options: {
+            plugins: { legend: { display: false } },
+            cutout: '60%',
+            animation: { duration: 800 }
+          }
         });
       </script>
     </div>
@@ -39,9 +57,13 @@
     <div class="team-box">
       <h2>Engineering - Product</h2>
       <img src="img/blinking_stoplight_yellow.gif" class="stoplight" alt="Status" title="Status: Yellow">
-      <p title="% of backlog stories that are groomed and ready for future sprints.">
-        Groomed: <strong>55%</strong>
+      <p><strong>Yellow</strong> —
+        
+          Caution: Backlog needs further grooming.
+        
       </p>
+      <p><strong>55%</strong> of backlog is groomed</p>
+
       <canvas id="groomingChart1" width="200" height="200"></canvas>
       <script>
         new Chart(document.getElementById('groomingChart1'), {
@@ -53,7 +75,11 @@
               backgroundColor: ['#2196f3', '#eeeeee']
             }]
           },
-          options: { plugins: { legend: { display: false } }, cutout: '60%' }
+          options: {
+            plugins: { legend: { display: false } },
+            cutout: '60%',
+            animation: { duration: 800 }
+          }
         });
       </script>
     </div>
@@ -61,9 +87,13 @@
     <div class="team-box">
       <h2>Engineering - AI Ops</h2>
       <img src="img/blinking_stoplight_red.gif" class="stoplight" alt="Status" title="Status: Red">
-      <p title="% of backlog stories that are groomed and ready for future sprints.">
-        Groomed: <strong>20%</strong>
+      <p><strong>Red</strong> —
+        
+          At Risk: Backlog lacks refinement or ownership.
+        
       </p>
+      <p><strong>20%</strong> of backlog is groomed</p>
+
       <canvas id="groomingChart2" width="200" height="200"></canvas>
       <script>
         new Chart(document.getElementById('groomingChart2'), {
@@ -75,7 +105,11 @@
               backgroundColor: ['#2196f3', '#eeeeee']
             }]
           },
-          options: { plugins: { legend: { display: false } }, cutout: '60%' }
+          options: {
+            plugins: { legend: { display: false } },
+            cutout: '60%',
+            animation: { duration: 800 }
+          }
         });
       </script>
     </div>
@@ -83,9 +117,13 @@
     <div class="team-box">
       <h2>Data Science</h2>
       <img src="img/blinking_stoplight_red.gif" class="stoplight" alt="Status" title="Status: Red">
-      <p title="% of backlog stories that are groomed and ready for future sprints.">
-        Groomed: <strong>0%</strong>
+      <p><strong>Red</strong> —
+        
+          At Risk: Backlog lacks refinement or ownership.
+        
       </p>
+      <p><strong>0%</strong> of backlog is groomed</p>
+
       <canvas id="groomingChart3" width="200" height="200"></canvas>
       <script>
         new Chart(document.getElementById('groomingChart3'), {
@@ -97,7 +135,11 @@
               backgroundColor: ['#2196f3', '#eeeeee']
             }]
           },
-          options: { plugins: { legend: { display: false } }, cutout: '60%' }
+          options: {
+            plugins: { legend: { display: false } },
+            cutout: '60%',
+            animation: { duration: 800 }
+          }
         });
       </script>
     </div>
@@ -105,9 +147,13 @@
     <div class="team-box">
       <h2>Design</h2>
       <img src="img/blinking_stoplight_yellow.gif" class="stoplight" alt="Status" title="Status: Yellow">
-      <p title="% of backlog stories that are groomed and ready for future sprints.">
-        Groomed: <strong>50%</strong>
+      <p><strong>Yellow</strong> —
+        
+          Caution: Backlog needs further grooming.
+        
       </p>
+      <p><strong>50%</strong> of backlog is groomed</p>
+
       <canvas id="groomingChart4" width="200" height="200"></canvas>
       <script>
         new Chart(document.getElementById('groomingChart4'), {
@@ -119,7 +165,11 @@
               backgroundColor: ['#2196f3', '#eeeeee']
             }]
           },
-          options: { plugins: { legend: { display: false } }, cutout: '60%' }
+          options: {
+            plugins: { legend: { display: false } },
+            cutout: '60%',
+            animation: { duration: 800 }
+          }
         });
       </script>
     </div>
