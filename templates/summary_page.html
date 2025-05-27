@@ -32,10 +32,12 @@
 
   <header>
     <h1>Overall Program Health</h1>
-    <img src="img/blinking_stoplight_red.gif" alt="Overall Status" class="big-stoplight">
-    <p><strong>Red</strong> —
-      At Risk: Needs Immediate Attention
-      
+    <img src="{{ program_light }}" alt="Overall Status" class="big-stoplight">
+    <p><strong>{{ program_status }}</strong> —
+      {% if program_status == 'Red' %}At Risk: Needs Immediate Attention
+      {% elif program_status == 'Yellow' %}Caution: Prep Work Required
+      {% elif program_status == 'Green' %}On Track: No Action Needed
+      {% endif %}
     </p>
   </header>
 
@@ -63,39 +65,31 @@
   <section>
     <h2>Team-Level Breakdown</h2>
     <ul>
-      
-      <li><strong>Engineering - Platform</strong>: 90% of sprint stories are ready. Indicates how defined and actionable the team’s current sprint workload is.</li>
-      
-      <li><strong>Engineering - Product</strong>: 75% of sprint stories are ready. Indicates how defined and actionable the team’s current sprint workload is.</li>
-      
-      <li><strong>Engineering - AI Ops</strong>: 60% of sprint stories are ready. Indicates how defined and actionable the team’s current sprint workload is.</li>
-      
-      <li><strong>Data Science</strong>: 50% of sprint stories are ready. Indicates how defined and actionable the team’s current sprint workload is.</li>
-      
-      <li><strong>Design</strong>: 65% of sprint stories are ready. Indicates how defined and actionable the team’s current sprint workload is.</li>
-      
+      {% for team in readiness %}
+      <li><strong>{{ team.Team }}</strong>: {{ team['Ready %'] }}% of sprint stories are ready. Indicates how defined and actionable the team’s current sprint workload is.</li>
+      {% endfor %}
     </ul>
   </section>
 
   <div class="timestamp">
-    Last updated: May 27, 2025 @ 06:59 AM
+    Last updated: {{ last_updated }}
   </div>
 
   <script>
     const readinessData = {
-      labels: ["Engineering - Platform","Engineering - Product","Engineering - AI Ops","Data Science","Design"],
+      labels: [{% for r in readiness %}"{{ r.Team }}"{% if not loop.last %},{% endif %}{% endfor %}],
       datasets: [{
         label: '% Ready',
-        data: [90,75,60,50,65],
+        data: [{% for r in readiness %}{{ r['Ready %'] }}{% if not loop.last %},{% endif %}{% endfor %}],
         backgroundColor: ['#4caf50', '#cddc39', '#ffc107', '#03a9f4', '#00bcd4']
       }]
     };
 
     const groomingData = {
-      labels: ["Engineering - Platform","Engineering - Product","Engineering - AI Ops","Data Science","Design"],
+      labels: [{% for g in grooming %}"{{ g.Team }}"{% if not loop.last %},{% endif %}{% endfor %}],
       datasets: [{
         label: '% Groomed',
-        data: [80,55,20,0,50],
+        data: [{% for g in grooming %}{{ g['Groomed %'] }}{% if not loop.last %},{% endif %}{% endfor %}],
         backgroundColor: ['#2196f3', '#29b6f6', '#26c6da', '#90a4ae', '#00897b']
       }]
     };
