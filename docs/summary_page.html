@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Program Summary</title>
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Overall Program Health</h1>
+    <img src="{{ program_light }}" alt="Program Status" class="big-stoplight" title="Overall status is {{ program_status }}">
+    <p>Status: <strong>{{ program_status }}</strong></p>
+  </header>
+
+  <section>
+    <h2>How This Was Calculated</h2>
+    <p>If any team is Red, the overall status is Red. If none are Red but any are Yellow, it's Yellow. Otherwise, it's Green.</p>
+  </section>
+
+  <section>
+    <h2>Team Statuses</h2>
+    <div class="team-grid">
+      {% for team in team_statuses %}
+      <div class="team-box">
+        <h3>{{ team.Team }}</h3>
+        <img src="{{ team.Stoplight }}" alt="Status" class="stoplight" title="Status: {{ team.Status }}">
+        <p>Status: {{ team.Status }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section>
+    <h2>Readiness Overview</h2>
+    <canvas id="readinessChart" width="400" height="200"></canvas>
+  </section>
+
+  <section>
+    <h2>Backlog Grooming Overview</h2>
+    <canvas id="groomingChart" width="400" height="200"></canvas>
+  </section>
+
+  <script>
+    const readinessChart = new Chart(document.getElementById('readinessChart'), {
+      type: 'doughnut',
+      data: {
+        labels: [{% for row in readiness %}'{{ row.Team }}',{% endfor %}],
+        datasets: [{
+          label: '% Ready for Dev',
+          data: [{% for row in readiness %}{{ row['Ready %'] }},{% endfor %}],
+          backgroundColor: ['#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } },
+        animation: { duration: 1000 }
+      }
+    });
+
+    const groomingChart = new Chart(document.getElementById('groomingChart'), {
+      type: 'doughnut',
+      data: {
+        labels: [{% for row in grooming %}'{{ row.Team }}',{% endfor %}],
+        datasets: [{
+          label: '% Groomed',
+          data: [{% for row in grooming %}{{ row['Groomed %'] }},{% endfor %}],
+          backgroundColor: ['#03a9f4', '#00bcd4', '#009688', '#4db6ac', '#80cbc4']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } },
+        animation: { duration: 1000 }
+      }
+    });
+  </script>
+
+  <script>
+    setTimeout(() => window.location.reload(true), 300000); // refresh every 5 minutes
+  </script>
+</body>
+</html>

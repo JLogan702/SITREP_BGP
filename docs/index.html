@@ -1,137 +1,91 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sprint Dashboard</title>
-  <style>
-    body { font-family: Arial; margin: 40px; }
-    h1 { font-size: 28px; }
-    .dropdown { margin-bottom: 20px; }
-    .team-block { border: 1px solid #ccc; padding: 20px; margin: 15px 0; border-radius: 8px; }
-    .traffic-light { width: 40px; height: 120px; background: #222; border-radius: 20px; padding: 5px; display: inline-block; vertical-align: middle; }
-    .light { width: 30px; height: 30px; border-radius: 50%; margin: 5px auto; opacity: 0.3; animation: blink 1s infinite alternate; }
-    .green { background: green; }
-    .yellow { background: yellow; }
-    .red { background: red; }
-
-    @keyframes blink {
-      0% { opacity: 0.3; }
-      100% { opacity: 1; }
-    }
-
-    .explanation { font-size: 14px; color: #333; margin-top: 10px; }
-  </style>
-  <script>
-    function showTab(id) {
-      document.getElementById("sprint").style.display = id === "sprint" ? "block" : "none";
-      document.getElementById("backlog").style.display = id === "backlog" ? "block" : "none";
-    }
-  </script>
+  <title>Program Summary</title>
+  <link rel="stylesheet" href="../styles/dashboard.css">
 </head>
 <body>
-  <h1>🚦 Brand Growth Platform: Sprint Readiness & Backlog Health</h1>
-  <div class="dropdown">
-    <select onchange="showTab(this.value)">
-      <option value="sprint">Sprint Readiness</option>
-      <option value="backlog">Backlog Health</option>
-    </select>
-  </div>
+  <header>
+    <h1>Overall Program Health</h1>
+    <img src="img/blinking_stoplight_red.gif" alt="Program Status" class="big-stoplight">
+    <p>Status: <strong>Red</strong></p>
+  </header>
 
-  <div id="sprint">
+  <section>
+    <h2>How This Was Calculated</h2>
+    <p>If any team is Red, the overall status is Red. If none are Red but any are Yellow, it's Yellow. Otherwise, it's Green.</p>
+  </section>
 
-    <div class="team-block">
-      <h3>Design</h3>
-      <div class="traffic-light">
-        <div class="light red" style="opacity:1"></div>
-        <div class="light yellow" style="opacity:0.3"></div>
-        <div class="light green" style="opacity:0.3"></div>
+  <section>
+    <h2>Team Statuses</h2>
+    <div class="team-grid">
+      
+      <div class="team-box">
+        <h3>Engineering - Platform</h3>
+        <img src="img/blinking_stoplight_green.gif" alt="Status" class="stoplight">
+        <p>Status: Green</p>
       </div>
-      <p>Dev-ready stories: 2 / 6 (33.3%)</p>
-      <div class="explanation">This shows how prepared the team is for upcoming sprints based on tickets already slotted.</div>
-    </div>
-
-    <div class="team-block">
-      <h3>Engineering - AI Ops</h3>
-      <div class="traffic-light">
-        <div class="light red" style="opacity:1"></div>
-        <div class="light yellow" style="opacity:0.3"></div>
-        <div class="light green" style="opacity:0.3"></div>
+      
+      <div class="team-box">
+        <h3>Engineering - Product</h3>
+        <img src="img/blinking_stoplight_yellow.gif" alt="Status" class="stoplight">
+        <p>Status: Yellow</p>
       </div>
-      <p>Dev-ready stories: 2 / 7 (28.6%)</p>
-      <div class="explanation">This shows how prepared the team is for upcoming sprints based on tickets already slotted.</div>
-    </div>
-
-    <div class="team-block">
-      <h3>Engineering - Product</h3>
-      <div class="traffic-light">
-        <div class="light red" style="opacity:1"></div>
-        <div class="light yellow" style="opacity:0.3"></div>
-        <div class="light green" style="opacity:0.3"></div>
+      
+      <div class="team-box">
+        <h3>Engineering - AI Ops</h3>
+        <img src="img/blinking_stoplight_red.gif" alt="Status" class="stoplight">
+        <p>Status: Red</p>
       </div>
-      <p>Dev-ready stories: 6 / 30 (20.0%)</p>
-      <div class="explanation">This shows how prepared the team is for upcoming sprints based on tickets already slotted.</div>
-    </div>
-
-  </div>
-
-  <div id="backlog" style="display:none;">
-
-    <div class="team-block">
-      <h3>Data Science</h3>
-      <div class="traffic-light">
-        <div class="light red" style="opacity:1"></div>
-        <div class="light yellow" style="opacity:0.3"></div>
-        <div class="light green" style="opacity:0.3"></div>
+      
+      <div class="team-box">
+        <h3>Data Science</h3>
+        <img src="img/blinking_stoplight_red.gif" alt="Status" class="stoplight">
+        <p>Status: Red</p>
       </div>
-      <p>Total Backlog: 21 – New: 1 (4.8%), Grooming: 0 (0.0%), Ready: 0 (0.0%)</p>
-      <div class="explanation">This shows how well the backlog is being maintained and prepared for future sprints.</div>
-    </div>
-
-    <div class="team-block">
-      <h3>Design</h3>
-      <div class="traffic-light">
-        <div class="light red" style="opacity:1"></div>
-        <div class="light yellow" style="opacity:0.3"></div>
-        <div class="light green" style="opacity:0.3"></div>
+      
+      <div class="team-box">
+        <h3>Design</h3>
+        <img src="img/blinking_stoplight_yellow.gif" alt="Status" class="stoplight">
+        <p>Status: Yellow</p>
       </div>
-      <p>Total Backlog: 13 – New: 2 (15.4%), Grooming: 2 (15.4%), Ready: 0 (0.0%)</p>
-      <div class="explanation">This shows how well the backlog is being maintained and prepared for future sprints.</div>
+      
     </div>
+  </section>
 
-    <div class="team-block">
-      <h3>Engineering - AI Ops</h3>
-      <div class="traffic-light">
-        <div class="light red" style="opacity:1"></div>
-        <div class="light yellow" style="opacity:0.3"></div>
-        <div class="light green" style="opacity:0.3"></div>
-      </div>
-      <p>Total Backlog: 9 – New: 0 (0.0%), Grooming: 1 (11.1%), Ready: 0 (0.0%)</p>
-      <div class="explanation">This shows how well the backlog is being maintained and prepared for future sprints.</div>
-    </div>
+  <section>
+    <h2>Readiness Overview</h2>
+    <ul>
+      
+      <li>Engineering - Platform: 60% Ready</li>
+      
+      <li>Engineering - Product: 75% Ready</li>
+      
+      <li>Engineering - AI Ops: 40% Ready</li>
+      
+      <li>Data Science: 0% Ready</li>
+      
+      <li>Design: 20% Ready</li>
+      
+    </ul>
+  </section>
 
-    <div class="team-block">
-      <h3>Engineering - Platform</h3>
-      <div class="traffic-light">
-        <div class="light red" style="opacity:1"></div>
-        <div class="light yellow" style="opacity:0.3"></div>
-        <div class="light green" style="opacity:0.3"></div>
-      </div>
-      <p>Total Backlog: 28 – New: 6 (21.4%), Grooming: 2 (7.1%), Ready: 0 (0.0%)</p>
-      <div class="explanation">This shows how well the backlog is being maintained and prepared for future sprints.</div>
-    </div>
-
-    <div class="team-block">
-      <h3>Engineering - Product</h3>
-      <div class="traffic-light">
-        <div class="light red" style="opacity:1"></div>
-        <div class="light yellow" style="opacity:0.3"></div>
-        <div class="light green" style="opacity:0.3"></div>
-      </div>
-      <p>Total Backlog: 13 – New: 8 (61.5%), Grooming: 4 (30.8%), Ready: 0 (0.0%)</p>
-      <div class="explanation">This shows how well the backlog is being maintained and prepared for future sprints.</div>
-    </div>
-
-  </div>
+  <section>
+    <h2>Backlog Grooming Overview</h2>
+    <ul>
+      
+      <li>Engineering - Platform: 80% Groomed</li>
+      
+      <li>Engineering - Product: 55% Groomed</li>
+      
+      <li>Engineering - AI Ops: 20% Groomed</li>
+      
+      <li>Data Science: 0% Groomed</li>
+      
+      <li>Design: 50% Groomed</li>
+      
+    </ul>
+  </section>
 </body>
 </html>

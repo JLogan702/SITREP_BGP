@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Backlog Health</title>
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Team Backlog Health</h1>
+    <p>This shows how well groomed each team’s backlog is.</p>
+  </header>
+
+  <div class="team-grid">
+    
+    <div class="team-box">
+      <h2>Engineering - Platform</h2>
+      <img src="img/blinking_stoplight_green.gif" class="stoplight" alt="Status" title="Status: Green">
+      <p title="% of backlog stories that are groomed and ready for future sprints.">
+        Groomed: <strong>80%</strong>
+      </p>
+      <canvas id="groomingChart0" width="200" height="200"></canvas>
+      <script>
+        new Chart(document.getElementById('groomingChart0'), {
+          type: 'doughnut',
+          data: {
+            labels: ['Groomed', 'Ungroomed'],
+            datasets: [{
+              data: [80, 20],
+              backgroundColor: ['#2196f3', '#eeeeee']
+            }]
+          },
+          options: { plugins: { legend: { display: false } }, cutout: '60%' }
+        });
+      </script>
+    </div>
+    
+    <div class="team-box">
+      <h2>Engineering - Product</h2>
+      <img src="img/blinking_stoplight_yellow.gif" class="stoplight" alt="Status" title="Status: Yellow">
+      <p title="% of backlog stories that are groomed and ready for future sprints.">
+        Groomed: <strong>55%</strong>
+      </p>
+      <canvas id="groomingChart1" width="200" height="200"></canvas>
+      <script>
+        new Chart(document.getElementById('groomingChart1'), {
+          type: 'doughnut',
+          data: {
+            labels: ['Groomed', 'Ungroomed'],
+            datasets: [{
+              data: [55, 45],
+              backgroundColor: ['#2196f3', '#eeeeee']
+            }]
+          },
+          options: { plugins: { legend: { display: false } }, cutout: '60%' }
+        });
+      </script>
+    </div>
+    
+    <div class="team-box">
+      <h2>Engineering - AI Ops</h2>
+      <img src="img/blinking_stoplight_red.gif" class="stoplight" alt="Status" title="Status: Red">
+      <p title="% of backlog stories that are groomed and ready for future sprints.">
+        Groomed: <strong>20%</strong>
+      </p>
+      <canvas id="groomingChart2" width="200" height="200"></canvas>
+      <script>
+        new Chart(document.getElementById('groomingChart2'), {
+          type: 'doughnut',
+          data: {
+            labels: ['Groomed', 'Ungroomed'],
+            datasets: [{
+              data: [20, 80],
+              backgroundColor: ['#2196f3', '#eeeeee']
+            }]
+          },
+          options: { plugins: { legend: { display: false } }, cutout: '60%' }
+        });
+      </script>
+    </div>
+    
+    <div class="team-box">
+      <h2>Data Science</h2>
+      <img src="img/blinking_stoplight_red.gif" class="stoplight" alt="Status" title="Status: Red">
+      <p title="% of backlog stories that are groomed and ready for future sprints.">
+        Groomed: <strong>0%</strong>
+      </p>
+      <canvas id="groomingChart3" width="200" height="200"></canvas>
+      <script>
+        new Chart(document.getElementById('groomingChart3'), {
+          type: 'doughnut',
+          data: {
+            labels: ['Groomed', 'Ungroomed'],
+            datasets: [{
+              data: [0, 100],
+              backgroundColor: ['#2196f3', '#eeeeee']
+            }]
+          },
+          options: { plugins: { legend: { display: false } }, cutout: '60%' }
+        });
+      </script>
+    </div>
+    
+    <div class="team-box">
+      <h2>Design</h2>
+      <img src="img/blinking_stoplight_yellow.gif" class="stoplight" alt="Status" title="Status: Yellow">
+      <p title="% of backlog stories that are groomed and ready for future sprints.">
+        Groomed: <strong>50%</strong>
+      </p>
+      <canvas id="groomingChart4" width="200" height="200"></canvas>
+      <script>
+        new Chart(document.getElementById('groomingChart4'), {
+          type: 'doughnut',
+          data: {
+            labels: ['Groomed', 'Ungroomed'],
+            datasets: [{
+              data: [50, 50],
+              backgroundColor: ['#2196f3', '#eeeeee']
+            }]
+          },
+          options: { plugins: { legend: { display: false } }, cutout: '60%' }
+        });
+      </script>
+    </div>
+    
+  </div>
+
+  <script>
+    setTimeout(() => window.location.reload(true), 300000);
+  </script>
+</body>
+</html>
