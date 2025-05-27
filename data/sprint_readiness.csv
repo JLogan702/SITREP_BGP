@@ -1,6 +1,6 @@
-Team,Ready %,Status
-Engineering - Platform,90,Green
-Engineering - Product,75,Yellow
-Engineering - AI Ops,60,Yellow
-Data Science,50,Red
-Design,65,Yellow
+Team,Ready Count,Total Count,Status,Explanation
+Engineering - Product,1,26,Red,1 of 26 story tickets are in statuses considered ready.
+Engineering - Platform,0,0,Red,This team has no story tickets in upcoming sprints.
+Engineering - AI Ops,0,5,Red,0 of 5 story tickets are in statuses considered ready.
+Design,0,3,Red,0 of 3 story tickets are in statuses considered ready.
+Data Science,0,0,Red,This team has no story tickets in upcoming sprints.

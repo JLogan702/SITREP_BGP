@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Program Summary</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <style>
+        .stoplight {
+            width: 80px;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .summary-box {
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: #f2f2f2;
+        }
+        table {
+            margin-top: 10px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+        h1 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <label for="pageSelect">Jump to Page:</label>
+        <select id="pageSelect" onchange="location = this.value;">
+            <option value="index.html" selected>Program Summary</option>
+            <option value="sprint_readiness.html">Sprint Readiness</option>
+            <option value="backlog_health.html">Backlog Health</option>
+        </select>
+    </div>
+
+    <h1>Overall Program Health</h1>
+
+    <div class="summary-box">
+        <img src="{{ 'img/blinking_stoplight_' + overall_status.lower() + '.gif' }}" class="stoplight">
+        <p><strong>Overall Status:</strong> {{ overall_status }}</p>
+        <p><strong>How This Was Calculated:</strong> If any team has a Red status in either Sprint Readiness or Backlog Health, the overall status is Red. If there are no Red teams but at least one Yellow, the overall status is Yellow. Only if all teams are Green is the status Green.</p>
+        <p><strong>Summary:</strong> {{ overall_summary }}</p>
+    </div>
+
+    <h2>Team-Level Overview</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Team</th>
+                <th>Sprint Ready %</th>
+                <th>Sprint Status</th>
+                <th>Backlog Health %</th>
+                <th>Backlog Status</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for team in combined_data %}
+            <tr>
+                <td>{{ team['Team'] }}</td>
+                <td>{{ team['Sprint Ready %'] }}%</td>
+                <td>{{ team['Sprint Status'] }}</td>
+                <td>{{ team['Backlog Health %'] }}%</td>
+                <td>{{ team['Backlog Status'] }}</td>
+                <td>{{ team['Summary'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <footer>Last updated: {{ timestamp }}</footer>
+</body>
+</html>

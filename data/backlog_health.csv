@@ -1,6 +1,6 @@
-Team,Groomed %,Status
-Engineering - Platform,80,Green
-Engineering - Product,55,Yellow
-Engineering - AI Ops,20,Red
-Data Science,0,Red
-Design,50,Yellow
+Team,Ready,New,Grooming,Total,Ungroomed %,Backlog Status,Explanation_Backlog,Status Breakdown
+Engineering - Product,0,9,4,13,100.0,Red,0 of 13 story tickets are marked 'Ready for Development'.,"{'New': 9, 'Grooming': 4}"
+Engineering - Platform,0,4,2,10,100.0,Red,0 of 10 story tickets are marked 'Ready for Development'.,"{'New': 4, 'Backlog': 4, 'Grooming': 2}"
+Engineering - AI Ops,0,0,1,6,100.0,Red,0 of 6 story tickets are marked 'Ready for Development'.,"{'Backlog': 5, 'Grooming': 1}"
+Design,0,2,2,4,100.0,Red,0 of 4 story tickets are marked 'Ready for Development'.,"{'New': 2, 'Grooming': 2}"
+Data Science,0,1,0,1,100.0,Red,0 of 1 story tickets are marked 'Ready for Development'.,{'New': 1}

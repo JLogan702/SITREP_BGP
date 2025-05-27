@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Backlog Health</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <style>
+        .stoplight {
+            width: 60px;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .team-box {
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: #f9f9f9;
+        }
+        table {
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <label for="pageSelect">Jump to Page:</label>
+        <select id="pageSelect" onchange="location = this.value;">
+            <option value="index.html">Program Summary</option>
+            <option value="sprint_readiness.html">Sprint Readiness</option>
+            <option value="backlog_health.html" selected>Backlog Health</option>
+        </select>
+    </div>
+
+    <h1>Team Backlog Health</h1>
+    <p>
+        <strong>Backlog Health</strong> reflects how well each team’s backlog is groomed. We assess the percentage of story tickets <em>not in an active or future sprint</em> that are considered "ready."<br><br>
+        - A story counts toward Backlog Health if it is <strong>not assigned to an active or future sprint</strong>.<br>
+        - It must be in one of the following statuses: <em>"New"</em>, <em>"Grooming"</em>, <em>"Backlog"</em>, or <em>"Ready for Development"</em>.<br>
+        - Only those in <em>"Ready for Development"</em> count as "Ready".<br>
+        - Done issues and tickets already committed to future work are excluded.
+    </p>
+    <p>
+        <strong>Status thresholds:</strong><br>
+        <span style="color:green">Green</span>: 80% or more of backlog is groomed<br>
+        <span style="color:orange">Yellow</span>: 50–79% groomed<br>
+        <span style="color:red">Red</span>: Less than 50% groomed
+    </p>
+
+    {% for item in backlog_data %}
+        <div class="team-box">
+            <h2>{{ item['Team'] }}</h2>
+            <img src="{{ 'img/blinking_stoplight_' + item['Backlog Status'].lower() + '.gif' }}" class="stoplight">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Total Stories in Backlog</th>
+                        <th>Ready Stories</th>
+                        <th>Backlog Health %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ item['Total Count'] }}</td>
+                        <td>{{ item['Ready Count'] }}</td>
+                        <td>{{ item['Backlog Health %'] }}%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Story Tickets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for status, count in item['Status Breakdown'].items() %}
+                        <tr><td>{{ status }}</td><td>{{ count }}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <p><strong>Status Explanation:</strong> {{ item['Explanation_Backlog'] }}</p>
+        </div>
+    {% endfor %}
+
+    <footer>Last updated: {{ timestamp }}</footer>
+</body>
+</html>

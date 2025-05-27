@@ -1,117 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Program Summary</title>
-  <link rel="stylesheet" href="../styles/dashboard.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    @media print {
-      .nav-dropdown { display: none; }
-      canvas { max-width: 100% !important; height: auto !important; }
-    }
-    .timestamp {
-      position: fixed;
-      bottom: 10px;
-      right: 20px;
-      font-size: 0.8rem;
-      color: #666;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Sprint Readiness</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <style>
+        .stoplight {
+            width: 60px;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .team-box {
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: #f9f9f9;
+        }
+        table {
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #ccc;
+        }
+        h1 {
+            margin-top: 0;
+        }
+    </style>
 </head>
 <body>
-  <div class="nav-dropdown">
-    <label for="nav-select">Jump to Page:</label>
-    <select id="nav-select" onchange="location = this.value;">
-      <option value="#">-- Select --</option>
-      <option value="index.html" selected>Program Summary</option>
-      <option value="sprint_readiness.html">Sprint Readiness</option>
-      <option value="backlog_health.html">Backlog Health</option>
-    </select>
-  </div>
-
-  <header>
-    <h1>Overall Program Health</h1>
-    <img src="" alt="Overall Status" class="big-stoplight">
-    <p><strong></strong> —
-      
-    </p>
-  </header>
-
-  <section>
-    <h2>How This Was Calculated</h2>
-    <p>The program status is based on the worst team status. Red = at least one team is Red. Yellow = at least one Yellow, none Red. Green = all teams Green.</p>
-  </section>
-
-  <section>
-    <h2>Program-wide Metrics</h2>
-    <div class="chart-row">
-      <div class="chart-box">
-        <h3>% Stories Ready</h3>
-        <canvas id="readinessChart" width="160" height="160"></canvas>
-        <p>Legend: Green = Platform, Yellow = Product, Red = AI Ops, Blue = Data Science, Cyan = Design</p>
-      </div>
-      <div class="chart-box">
-        <h3>% Backlog Groomed</h3>
-        <canvas id="groomingChart" width="160" height="160"></canvas>
-        <p>Legend: Blue = Platform, Light Blue = Product, Aqua = AI Ops, Grey = Data Science, Teal = Design</p>
-      </div>
+    <div class="nav">
+        <label for="pageSelect">Jump to Page:</label>
+        <select id="pageSelect" onchange="location = this.value;">
+            <option value="index.html">Program Summary</option>
+            <option value="sprint_readiness.html" selected>Sprint Readiness</option>
+            <option value="backlog_health.html">Backlog Health</option>
+        </select>
     </div>
-  </section>
 
-  <section>
-    <h2>Team-Level Breakdown</h2>
-    <ul>
-      
-    </ul>
-  </section>
+    <h1>Team Sprint Readiness</h1>
+    <p>
+        <strong>Sprint Readiness</strong> measures how prepared each team is for their upcoming work. We look at story tickets that are scheduled in <em>future sprints</em>, and calculate what percentage are truly "ready."<br><br>
+        - For <strong>Engineering - Product</strong>, only tickets in <em>"Ready for Development"</em> count as "Ready".<br>
+        - For all other teams, both <em>"To Do"</em> and <em>"Ready for Development"</em> count.<br>
+        - Tickets in <em>"New"</em> are shown for visibility but are not considered "Ready".<br>
+        - Only story tickets are included — subtasks, bugs, and other issue types are excluded.<br>
+        - Tickets already marked "Done" or in the current sprint are not included.
+    </p>
+    <p>
+        <strong>Status thresholds:</strong><br>
+        <span style="color:green">Green</span>: 80% or more of stories are ready<br>
+        <span style="color:orange">Yellow</span>: 50–79% ready<br>
+        <span style="color:red">Red</span>: Less than 50% ready, or no stories in a future sprint
+    </p>
 
-  <div class="timestamp">
-    Last updated: May 27, 2025 @ 06:24 AM
-  </div>
+    
+        <div class="team-box">
+            <h2>Engineering - Product</h2>
+            <img src="img/blinking_stoplight_red.gif" class="stoplight">
 
-  <script>
-    const readinessData = {
-      labels: [],
-      datasets: [{
-        label: '% Ready',
-        data: [],
-        backgroundColor: ['#4caf50', '#cddc39', '#ffc107', '#03a9f4', '#00bcd4']
-      }]
-    };
+            <table>
+                <thead>
+                    <tr>
+                        <th>Total Stories in Future Sprints</th>
+                        <th>Ready Stories</th>
+                        <th>Readiness %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>26</td>
+                        <td>1</td>
+                        <td>3.8%</td>
+                    </tr>
+                </tbody>
+            </table>
 
-    const groomingData = {
-      labels: [],
-      datasets: [{
-        label: '% Groomed',
-        data: [],
-        backgroundColor: ['#2196f3', '#29b6f6', '#26c6da', '#90a4ae', '#00897b']
-      }]
-    };
+            <p><strong>Status Explanation:</strong> 1 of 26 story tickets are in statuses considered ready.</p>
+        </div>
+    
+        <div class="team-box">
+            <h2>Engineering - Platform</h2>
+            <img src="img/blinking_stoplight_red.gif" class="stoplight">
 
-    new Chart(document.getElementById('readinessChart'), {
-      type: 'doughnut',
-      data: readinessData,
-      options: {
-        responsive: false,
-        plugins: {
-          legend: { position: 'bottom' }
-        }
-      }
-    });
+            <table>
+                <thead>
+                    <tr>
+                        <th>Total Stories in Future Sprints</th>
+                        <th>Ready Stories</th>
+                        <th>Readiness %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>nan%</td>
+                    </tr>
+                </tbody>
+            </table>
 
-    new Chart(document.getElementById('groomingChart'), {
-      type: 'doughnut',
-      data: groomingData,
-      options: {
-        responsive: false,
-        plugins: {
-          legend: { position: 'bottom' }
-        }
-      }
-    });
+            <p><strong>Status Explanation:</strong> This team has no story tickets in upcoming sprints.</p>
+        </div>
+    
+        <div class="team-box">
+            <h2>Engineering - AI Ops</h2>
+            <img src="img/blinking_stoplight_red.gif" class="stoplight">
 
-    setTimeout(() => window.location.reload(true), 300000);
-  </script>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Total Stories in Future Sprints</th>
+                        <th>Ready Stories</th>
+                        <th>Readiness %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>5</td>
+                        <td>0</td>
+                        <td>0.0%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Status Explanation:</strong> 0 of 5 story tickets are in statuses considered ready.</p>
+        </div>
+    
+        <div class="team-box">
+            <h2>Design</h2>
+            <img src="img/blinking_stoplight_red.gif" class="stoplight">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Total Stories in Future Sprints</th>
+                        <th>Ready Stories</th>
+                        <th>Readiness %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>0.0%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Status Explanation:</strong> 0 of 3 story tickets are in statuses considered ready.</p>
+        </div>
+    
+        <div class="team-box">
+            <h2>Data Science</h2>
+            <img src="img/blinking_stoplight_red.gif" class="stoplight">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Total Stories in Future Sprints</th>
+                        <th>Ready Stories</th>
+                        <th>Readiness %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>nan%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Status Explanation:</strong> This team has no story tickets in upcoming sprints.</p>
+        </div>
+    
+
+    <footer>Last updated: May 27, 2025 @ 01:53 PM</footer>
 </body>
 </html>

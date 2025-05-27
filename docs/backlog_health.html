@@ -1,183 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Backlog Health</title>
-  <link rel="stylesheet" href="../styles/dashboard.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <title>Backlog Health</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <style>
+        .stoplight {
+            width: 60px;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .team-box {
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: #f9f9f9;
+        }
+        table {
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
+    <div class="nav">
+        <label for="pageSelect">Jump to Page:</label>
+        <select id="pageSelect" onchange="location = this.value;">
+            <option value="index.html">Program Summary</option>
+            <option value="sprint_readiness.html">Sprint Readiness</option>
+            <option value="backlog_health.html" selected>Backlog Health</option>
+        </select>
+    </div>
 
-  <!-- NAVIGATION BAR -->
-  <nav class="nav-bar">
-    <ul>
-      <li><a href="index.html">Program Summary</a></li>
-      <li><a href="sprint_readiness.html">Sprint Readiness</a></li>
-      <li><a class="active" href="backlog_health.html">Backlog Health</a></li>
-    </ul>
-  </nav>
-
-  <header>
     <h1>Team Backlog Health</h1>
-    <p>This page shows how well each team's backlog is groomed for future sprint planning.</p>
-  </header>
+    <p>
+        <strong>Backlog Health</strong> reflects how well each team’s backlog is groomed. We assess the percentage of story tickets <em>not in an active or future sprint</em> that are considered "ready."<br><br>
+        - A story counts toward Backlog Health if it is <strong>not assigned to an active or future sprint</strong>.<br>
+        - It must be in one of the following statuses: <em>"New"</em>, <em>"Grooming"</em>, <em>"Backlog"</em>, or <em>"Ready for Development"</em>.<br>
+        - Only those in <em>"Ready for Development"</em> count as "Ready".<br>
+        - Done issues and tickets already committed to future work are excluded.
+    </p>
+    <p>
+        <strong>Status thresholds:</strong><br>
+        <span style="color:green">Green</span>: 80% or more of backlog is groomed<br>
+        <span style="color:orange">Yellow</span>: 50–79% groomed<br>
+        <span style="color:red">Red</span>: Less than 50% groomed
+    </p>
 
-  <div class="team-grid">
     
-    <div class="team-box">
-      <h2>Engineering - Platform</h2>
-      <img src="img/blinking_stoplight_green.gif" class="stoplight" alt="Status" title="Status: Green">
-      <p><strong>Green</strong> —
-        
-          On Track: Backlog is refined and prioritized.
-        
-      </p>
-      <p><strong>80%</strong> of backlog is groomed</p>
+        <div class="team-box">
+            <h2>Engineering - Product</h2>
+            <img src="img/blinking_stoplight_red.gif" class="stoplight">
 
-      <canvas id="groomingChart0" width="200" height="200"></canvas>
-      <script>
-        new Chart(document.getElementById('groomingChart0'), {
-          type: 'doughnut',
-          data: {
-            labels: ['Groomed', 'Ungroomed'],
-            datasets: [{
-              data: [80, 20],
-              backgroundColor: ['#2196f3', '#eeeeee']
-            }]
-          },
-          options: {
-            plugins: { legend: { display: false } },
-            cutout: '60%',
-            animation: { duration: 800 }
-          }
-        });
-      </script>
-    </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Total Stories in Backlog</th>
+                        <th>Ready Stories</th>
+                        <th>Backlog Health %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Story Tickets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr><td>New</td><td>9</td></tr>
+                    
+                        <tr><td>Grooming</td><td>4</td></tr>
+                    
+                </tbody>
+            </table>
+
+            <p><strong>Status Explanation:</strong> 0 of 13 story tickets are marked 'Ready for Development'.</p>
+        </div>
     
-    <div class="team-box">
-      <h2>Engineering - Product</h2>
-      <img src="img/blinking_stoplight_yellow.gif" class="stoplight" alt="Status" title="Status: Yellow">
-      <p><strong>Yellow</strong> —
-        
-          Caution: Backlog needs further grooming.
-        
-      </p>
-      <p><strong>55%</strong> of backlog is groomed</p>
+        <div class="team-box">
+            <h2>Engineering - Platform</h2>
+            <img src="img/blinking_stoplight_red.gif" class="stoplight">
 
-      <canvas id="groomingChart1" width="200" height="200"></canvas>
-      <script>
-        new Chart(document.getElementById('groomingChart1'), {
-          type: 'doughnut',
-          data: {
-            labels: ['Groomed', 'Ungroomed'],
-            datasets: [{
-              data: [55, 45],
-              backgroundColor: ['#2196f3', '#eeeeee']
-            }]
-          },
-          options: {
-            plugins: { legend: { display: false } },
-            cutout: '60%',
-            animation: { duration: 800 }
-          }
-        });
-      </script>
-    </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Total Stories in Backlog</th>
+                        <th>Ready Stories</th>
+                        <th>Backlog Health %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Story Tickets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr><td>New</td><td>4</td></tr>
+                    
+                        <tr><td>Backlog</td><td>4</td></tr>
+                    
+                        <tr><td>Grooming</td><td>2</td></tr>
+                    
+                </tbody>
+            </table>
+
+            <p><strong>Status Explanation:</strong> 0 of 10 story tickets are marked 'Ready for Development'.</p>
+        </div>
     
-    <div class="team-box">
-      <h2>Engineering - AI Ops</h2>
-      <img src="img/blinking_stoplight_red.gif" class="stoplight" alt="Status" title="Status: Red">
-      <p><strong>Red</strong> —
-        
-          At Risk: Backlog lacks refinement or ownership.
-        
-      </p>
-      <p><strong>20%</strong> of backlog is groomed</p>
+        <div class="team-box">
+            <h2>Engineering - AI Ops</h2>
+            <img src="img/blinking_stoplight_red.gif" class="stoplight">
 
-      <canvas id="groomingChart2" width="200" height="200"></canvas>
-      <script>
-        new Chart(document.getElementById('groomingChart2'), {
-          type: 'doughnut',
-          data: {
-            labels: ['Groomed', 'Ungroomed'],
-            datasets: [{
-              data: [20, 80],
-              backgroundColor: ['#2196f3', '#eeeeee']
-            }]
-          },
-          options: {
-            plugins: { legend: { display: false } },
-            cutout: '60%',
-            animation: { duration: 800 }
-          }
-        });
-      </script>
-    </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Total Stories in Backlog</th>
+                        <th>Ready Stories</th>
+                        <th>Backlog Health %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Story Tickets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr><td>Backlog</td><td>5</td></tr>
+                    
+                        <tr><td>Grooming</td><td>1</td></tr>
+                    
+                </tbody>
+            </table>
+
+            <p><strong>Status Explanation:</strong> 0 of 6 story tickets are marked 'Ready for Development'.</p>
+        </div>
     
-    <div class="team-box">
-      <h2>Data Science</h2>
-      <img src="img/blinking_stoplight_red.gif" class="stoplight" alt="Status" title="Status: Red">
-      <p><strong>Red</strong> —
-        
-          At Risk: Backlog lacks refinement or ownership.
-        
-      </p>
-      <p><strong>0%</strong> of backlog is groomed</p>
+        <div class="team-box">
+            <h2>Design</h2>
+            <img src="img/blinking_stoplight_red.gif" class="stoplight">
 
-      <canvas id="groomingChart3" width="200" height="200"></canvas>
-      <script>
-        new Chart(document.getElementById('groomingChart3'), {
-          type: 'doughnut',
-          data: {
-            labels: ['Groomed', 'Ungroomed'],
-            datasets: [{
-              data: [0, 100],
-              backgroundColor: ['#2196f3', '#eeeeee']
-            }]
-          },
-          options: {
-            plugins: { legend: { display: false } },
-            cutout: '60%',
-            animation: { duration: 800 }
-          }
-        });
-      </script>
-    </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Total Stories in Backlog</th>
+                        <th>Ready Stories</th>
+                        <th>Backlog Health %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Story Tickets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr><td>New</td><td>2</td></tr>
+                    
+                        <tr><td>Grooming</td><td>2</td></tr>
+                    
+                </tbody>
+            </table>
+
+            <p><strong>Status Explanation:</strong> 0 of 4 story tickets are marked 'Ready for Development'.</p>
+        </div>
     
-    <div class="team-box">
-      <h2>Design</h2>
-      <img src="img/blinking_stoplight_yellow.gif" class="stoplight" alt="Status" title="Status: Yellow">
-      <p><strong>Yellow</strong> —
-        
-          Caution: Backlog needs further grooming.
-        
-      </p>
-      <p><strong>50%</strong> of backlog is groomed</p>
+        <div class="team-box">
+            <h2>Data Science</h2>
+            <img src="img/blinking_stoplight_red.gif" class="stoplight">
 
-      <canvas id="groomingChart4" width="200" height="200"></canvas>
-      <script>
-        new Chart(document.getElementById('groomingChart4'), {
-          type: 'doughnut',
-          data: {
-            labels: ['Groomed', 'Ungroomed'],
-            datasets: [{
-              data: [50, 50],
-              backgroundColor: ['#2196f3', '#eeeeee']
-            }]
-          },
-          options: {
-            plugins: { legend: { display: false } },
-            cutout: '60%',
-            animation: { duration: 800 }
-          }
-        });
-      </script>
-    </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Total Stories in Backlog</th>
+                        <th>Ready Stories</th>
+                        <th>Backlog Health %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Story Tickets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr><td>New</td><td>1</td></tr>
+                    
+                </tbody>
+            </table>
+
+            <p><strong>Status Explanation:</strong> 0 of 1 story tickets are marked 'Ready for Development'.</p>
+        </div>
     
-  </div>
 
-  <script>
-    setTimeout(() => window.location.reload(true), 300000);
-  </script>
+    <footer>Last updated: 2025-05-27 13:58:36</footer>
 </body>
 </html>
